@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.ImageSpan;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,15 +27,15 @@ public class MarkTextView extends AppCompatTextView {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setStaText(String text, String label, int res) {
+    public void setStaText(CharSequence text, CharSequence label, int res) {
         setText(text, STA, label, res);
     }
 
-    public void setEndText(String text, String label, int res) {
+    public void setEndText(CharSequence text, CharSequence label, int res) {
         setText(text, END, label, res);
     }
 
-    private void setText(String text, int gravity, String label, int res) {
+    private void setText(CharSequence text, int gravity, CharSequence label, int res) {
         if (label == null || label.length() == 0) {
             setText(text);
             return;
@@ -60,13 +59,13 @@ public class MarkTextView extends AppCompatTextView {
         }
     }
 
-    public ImageSpan getImageSpan(String text, Integer res) {
+    public MarkImageSpan getImageSpan(CharSequence text, Integer res) {
         View view = getView(text, res);
         Bitmap bitmap = getBitmap(view);
-        return new ImageSpan(getContext(), bitmap);
+        return new MarkImageSpan(getContext(), bitmap);
     }
 
-    public View getView(String text, Integer res) {
+    public View getView(CharSequence text, Integer res) {
         View view = LayoutInflater.from(getContext()).inflate(res, null);
         TextView tv = view.findViewById(R.id.mark);
         tv.setText(text);
