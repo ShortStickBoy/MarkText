@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,19 +41,19 @@ public class MarkTextView extends AppCompatTextView {
             setText(text);
             return;
         }
-        StringBuilder builder = new StringBuilder();
+        SpannableStringBuilder builder = new SpannableStringBuilder();
         switch (gravity) {
             case STA:
-                builder.append(label).append(text);
-                SpannableString s = new SpannableString(builder);
+                SpannableString s = new SpannableString(label);
                 s.setSpan(getImageSpan(label, res), 0, label.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                setText(s);
+                builder.append(s).append(text);
+                setText(builder);
                 break;
             case END:
-                builder.append(text).append(label);
-                SpannableString e = new SpannableString(builder);
-                e.setSpan(getImageSpan(label, res), text.length(), builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                setText(e);
+                SpannableString e = new SpannableString(label);
+                e.setSpan(getImageSpan(label, res), 0, label.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                builder.append(text).append(e);
+                setText(builder);
                 break;
             default:
                 throw new IllegalArgumentException("gravity must be MarkTextView.STA or MarkTextView.END");
