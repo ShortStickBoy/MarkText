@@ -2,6 +2,7 @@ package com.sunzn.mark.sample;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,9 +44,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         if (i % 3 == 0) {
-            viewHolder.getMarkTextView().setStaText(mDataSet.get(i), "标签" + i, R.layout.item_mark);
+            viewHolder.getMarkTextView().setStaText(Html.fromHtml(mDataSet.get(i)), "标签" + i, R.layout.item_mark);
         } else {
-            viewHolder.getMarkTextView().setText(mDataSet.get(i));
+            viewHolder.getMarkTextView().setText(Html.fromHtml(mDataSet.get(i)));
         }
     }
 
